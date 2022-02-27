@@ -2,6 +2,8 @@
 import characterData from "./data.js";
 import Character from "./character.js";
 
+let villainArray = ["sindel", "rain", "sonya"];
+
 function attack(){
     jade.getDiceHtml()
     sindel.getDiceHtml()
@@ -30,11 +32,11 @@ document.getElementById("attack-button").addEventListener("click", attack)
 
 function render(){
     document.getElementById("hero").innerHTML = jade.getCharacterHtml();
-    document.getElementById("villain").innerHTML = sindel.getCharacterHtml();
+    document.getElementById("sindel").innerHTML = sindel.getCharacterHtml();
 
 }
 
 
 const jade = new Character(characterData.hero)
-const sindel = new Character(characterData.villain)
+const sindel = new Character(characterData.sindel)
 render()

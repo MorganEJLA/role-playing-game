@@ -134,7 +134,7 @@ main {
   left: 0px;
   right: 0;
   background: #000721;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
