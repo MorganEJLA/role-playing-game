@@ -2,41 +2,72 @@
 import characterData from "./data.js";
 import Character from "./character.js";
 
-let villainArray = ["sindel", "rain", "sonya"];
+let villainArray = ["sindel", "rain", "sonya"]
+let isWaiting = false
 
+function getNewVillain(){
+    const nextVillainData = characterData[villainArray.shift()]
+    return nextVillainData ? new Character(nextVillainData) : {}
+
+}
 function attack(){
-    jade.getDiceHtml()
-    sindel.getDiceHtml()
-    jade.takeDamage(sindel.currentDiceScore)
-    sindel.takeDamage(jade.currentDiceScore)
-    render()
-    if(jade.dead|| sindel.dead ){
-        endGame()
+    if(!isWaiting){
+        jade.setDiceHtml()
+        villain.setDiceHtml()
+        jade.takeDamage(villain.currentDiceScore)
+        villain.takeDamage(jade.currentDiceScore)
+        render()
+
+        if(jade.dead) {
+            endGame()
+        }
+        else if (villain.dead){
+            isWaiting = true
+            if(villainArray.length > 0){
+                setTimeout(()=>{
+                    villain = getNewVillain()
+                    render()
+                    isWaiting = false
+                },1000)
+            }
+            else{
+                endGame()
+            }
+        }
+     
     }
 
 }
 
+
+
 function endGame(){
-    const endMessage  = jade.health === 0 && sindel.health === 0 ? "Everyone is dead" : 
-        jade.health > 0 ? "Jade Wins": "Sindel Wins"
+    isWaiting = true
+    const endMessage  = jade.health === 0 && villain.health === 0 ? "Everyone is dead" : 
+        jade.health > 0 ? "Jade Wins": "The Villains Win"
     const endEmoji = jade.health > 0 ? "💚" : "☠️"
-    document.body.innerHTML = 
-        `<div class = "end-game">
-            <h2>Game Over</h2>
-            <h3>${endMessage}</h3>
-            <p class = "end-emoji">${endEmoji}</p>
-        </div>`
+        setTimeout(()=>{
+            document.body.innerHTML = 
+            `<div class = "end-game">
+                <h2>Game Over</h2>
+                <h3>${endMessage}</h3>
+                <p class = "end-emoji">${endEmoji}</p>
+            </div>`
+
+        }, 1500)
 }
+   
+
 
 document.getElementById("attack-button").addEventListener("click", attack)
 
 function render(){
-    document.getElementById("hero").innerHTML = jade.getCharacterHtml();
-    document.getElementById("sindel").innerHTML = sindel.getCharacterHtml();
+    document.getElementById("hero").innerHTML = jade.getCharacterHtml()
+    document.getElementById("villain").innerHTML = villain.getCharacterHtml()
 
 }
 
 
 const jade = new Character(characterData.hero)
-const sindel = new Character(characterData.sindel)
+let villain = getNewVillain()
 render()

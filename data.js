@@ -3,7 +3,7 @@ const characterData = {
        
         name: "Jade",
         avatar: "img/jade.png",
-        health: 80,
+        health: 280,
         diceCount: 3,
         currentDiceScore: []
     },
@@ -11,7 +11,7 @@ const characterData = {
         name: "Sindel",
         avatar: "img/sindel.png",
         health: 130,
-        diceCount: 1,
+        diceCount: 3,
         currentDiceScore: []
 
     },
@@ -19,8 +19,8 @@ const characterData = {
     rain: {
         name: "Rain",
         avatar: "img/rain.png",
-        health: 80,
-        diceCount: 1,
+        health: 100,
+        diceCount: 3,
         currentDiceScore: []
 
     },
@@ -28,8 +28,8 @@ const characterData = {
     sonya: {
         name: "Sonya Blade",
         avatar: "img/sonya-blade.png",
-        health: 40,
-        diceCount: 1,
+        health: 50,
+        diceCount: 3,
         currentDiceScore: []
 
     }
