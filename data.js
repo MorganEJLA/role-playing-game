@@ -7,6 +7,11 @@ const characterData = {
         diceCount: 3,
         currentDiceScore: []
     },
+
+  
+
+// add a new hero with one hundred percent // 
+//different characters have different number of dice //
     sindel: {
         name: "Sindel",
         avatar: "img/sindel.png",
