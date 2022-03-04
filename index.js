@@ -2,7 +2,8 @@
 import characterData from "./data.js";
 import Character from "./character.js";
 
-let villainArray = ["sindel", "rain", "sonya"]
+let villainArray = ["sindel", "rain", "sonya", "kano","johnny", "fujin"]
+let heroArray = ["jade","kitana", "skarlet"]
 let isWaiting = false
 
 function getNewVillain(){
@@ -10,16 +11,33 @@ function getNewVillain(){
     return nextVillainData ? new Character(nextVillainData) : {}
 
 }
+
+function getNewHero(){
+    const nextHeroData = characterData[heroArray.shift()]
+    return nextHeroData ? new Character(nextHeroData): {}
+}
 function attack(){
     if(!isWaiting){
-        jade.setDiceHtml()
+
+        hero.setDiceHtml()
         villain.setDiceHtml()
-        jade.takeDamage(villain.currentDiceScore)
-        villain.takeDamage(jade.currentDiceScore)
+        hero.takeDamage(villain.currentDiceScore)
+        villain.takeDamage(hero.currentDiceScore)
         render()
 
-        if(jade.dead) {
-            endGame()
+        if(hero.dead) {
+            isWaiting = true
+            if(heroArray.length >0){
+                setTimeout(()=>{
+                    hero = getNewHero()
+                    render()
+                    isWaiting = false
+                }, 1000)
+            }
+            else{
+                endGame()
+            }
+            // endGame()
         }
         else if (villain.dead){
             isWaiting = true
@@ -43,9 +61,9 @@ function attack(){
 
 function endGame(){
     isWaiting = true
-    const endMessage  = jade.health === 0 && villain.health === 0 ? "Everyone is dead" : 
-        jade.health > 0 ? "Jade Wins": "The Villains Win"
-    const endEmoji = jade.health > 0 ? "💚" : "☠️"
+    const endMessage  = hero.health === 0 && villain.health === 0 ? "Everyone is dead" : 
+        hero.health > 0 ? "Jade's Team Wins": "The Villains Win"
+    const endEmoji = hero.health > 0 ? "💚 " : "☠️"
         setTimeout(()=>{
             document.body.innerHTML = 
             `<div class = "end-game">
@@ -62,12 +80,12 @@ function endGame(){
 document.getElementById("attack-button").addEventListener("click", attack)
 
 function render(){
-    document.getElementById("hero").innerHTML = jade.getCharacterHtml()
+    document.getElementById("hero").innerHTML = hero.getCharacterHtml()
     document.getElementById("villain").innerHTML = villain.getCharacterHtml()
 
 }
 
 
-const jade = new Character(characterData.hero)
+let hero = getNewHero()
 let villain = getNewVillain()
 render()

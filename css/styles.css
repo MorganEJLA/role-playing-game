@@ -20,6 +20,7 @@ main {
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
+  max-height: 100vh;
 }
 
 @media (min-width: 550px) {
@@ -33,7 +34,7 @@ main {
 }
 
 .character-card {
-  height: 14rem;
+  height: 16rem;
   margin-top: 0.5rem;
   width: 94vw;
   max-width: 230px;
@@ -73,9 +74,9 @@ main {
 }
 
 .avatar {
-  width: 15vh;
+  width: 10vh;
   border: 2px solid #000721;
-  max-width: 100%;
+  max-width: 90%;
   opacity: 0.8;
   border-radius: 10px;
   background-color: rgba(0, 7, 33, 0.8);
@@ -89,17 +90,19 @@ main {
 
 .health {
   font-size: 1.1rem;
+  line-height: 1rem;
   font-weight: normal;
-  width: 90%;
+  width: 100%;
   text-align: left;
-  margin: 1vh 5%;
+  margin: 0.5vh 5%;
+
   color: #ccc;
   letter-spacing: 0.03em;
 }
 
 @media (min-width: 550px) {
   .health {
-    margin: 2vh 5%;
+    margin: 0.25vh 5%;
   }
 }
 
